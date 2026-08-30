@@ -1,0 +1,29 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Production Builds
+frontend/dist/
+dist/
+build/
+
+# Python & Django
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.sqlite3
+backend/db.sqlite3
+backend/db_local.sqlite3
+.env
+*.env
+env/
+venv/
+ENV/
+
+# System & IDE
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.log
