@@ -1,249 +1,234 @@
-import React, { useState } from 'react';
+// src/components/Footer.jsx
+import React from 'react';
 import { Link } from 'react-router-dom';
-import { Cpu, Mail, Send, Linkedin, Twitter, Facebook, Youtube, ShieldAlert, Award, FileText, CheckCircle2 } from 'lucide-react';
-import axios from 'axios';
-import { useToast } from '../context/ToastContext';
+import { ChevronUp } from 'lucide-react';
 
 export function Footer({ setCurrentPage }) {
-  const [email, setEmail] = useState('');
-  const [subscribed, setSubscribed] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const { addToast } = useToast();
-
-  const handleSubscribe = async (e) => {
-    e.preventDefault();
-    if (!email.trim()) {
-      addToast('Please enter your email address.', 'error');
-      return;
-    }
-    setLoading(true);
-    try {
-      await axios.post('http://127.0.0.1:8002/api/v1/newsletter/', { email: email.strip ? email.strip() : email });
-      setSubscribed(true);
-      addToast('Subscribed! You will receive SiPhBioLabChip photonic updates.', 'success');
-      setEmail('');
-    } catch (err) {
-      setSubscribed(true);
-      addToast('Thank you for subscribing to SiPhBioLabChip updates!', 'success');
-      setEmail('');
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleLink = (page) => {
-    setCurrentPage(page);
+  const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
-    <footer style={{
-      background: '#070B14',
-      borderTop: '1px solid rgba(255, 255, 255, 0.08)',
-      paddingTop: '4rem',
-      paddingBottom: '2.5rem',
-      color: '#94A3B8'
-    }}>
-      <div className="container">
-        
-        {/* Newsletter Glass Card */}
-        <div style={{
-          background: 'linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(30, 41, 59, 0.7) 100%)',
-          backdropFilter: 'blur(16px)',
-          border: '1px solid rgba(6, 182, 212, 0.3)',
-          borderRadius: '20px',
-          padding: '2.5rem',
-          marginBottom: '4rem',
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-          gap: '2rem',
-          alignItems: 'center',
-          boxShadow: '0 15px 35px -10px rgba(0, 0, 0, 0.5)'
-        }}>
-          <div>
-            <div className="badge" style={{ marginBottom: '0.75rem' }}>
-              <Mail size={14} />
-              <span>Biochip Clinical Intelligence</span>
-            </div>
-            <h3 style={{ fontSize: '1.6rem', color: '#FFFFFF', marginBottom: '0.5rem' }}>
-              Be the first to receive biochip assay updates & photonic whitepapers
-            </h3>
-            <p style={{ fontSize: '0.95rem', color: '#94A3B8' }}>
-              Stay informed on Silicon Photonics multiplex immunoassay breakthroughs, SiPhBioLabChip platform releases, and peer-reviewed binding kinetics studies.
+    <footer
+      style={{
+        backgroundColor: '#ffffff',
+        borderTop: '1px solid #e2e8f0',
+        paddingTop: '4.5rem',
+        paddingBottom: '3.5rem',
+        color: '#475569',
+        fontFamily: 'Inter, system-ui, sans-serif',
+        position: 'relative',
+        overflow: 'hidden',
+      }}
+    >
+      {/* Background Subtle Curved Light Lines Accent */}
+      <svg
+        style={{
+          position: 'absolute',
+          top: 0,
+          right: 0,
+          width: '100%',
+          height: '100%',
+          pointerEvents: 'none',
+          opacity: 0.35,
+          zIndex: 0,
+        }}
+        viewBox="0 0 1440 400"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M0 200C320 100 640 300 960 150C1280 0 1440 100 1440 100V400H0V200Z"
+          fill="url(#footer_wave)"
+        />
+        <defs>
+          <linearGradient id="footer_wave" x1="0" y1="0" x2="1440" y2="400" gradientUnits="userSpaceOnUse">
+            <stop stopColor="#2bbdb9" stopOpacity="0.04" />
+            <stop offset="1" stopColor="#f8fafc" stopOpacity="0" />
+          </linearGradient>
+        </defs>
+      </svg>
+
+      <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 2rem', position: 'relative', zIndex: 1 }}>
+        {/* TOP MAIN GRID */}
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+            gap: '3.5rem',
+            marginBottom: '3.5rem',
+          }}
+        >
+          {/* LEFT COLUMN: LOGO & MISSION TAGLINE */}
+          <div style={{ maxWidth: '360px' }}>
+            <Link
+              to="/"
+              style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '8px', marginBottom: '1.5rem' }}
+            >
+              <span
+                style={{
+                  fontSize: '1.75rem',
+                  fontWeight: 700,
+                  color: '#0f172a',
+                  letterSpacing: '-0.03em',
+                }}
+              >
+                SiPhBio
+              </span>
+              
+              {/* Crossed X Icon */}
+              <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M5 5L23 23" stroke="#2bbdb9" strokeWidth="4.5" strokeLinecap="round" />
+                <path d="M5 23L23 5" stroke="#f97316" strokeWidth="4.5" strokeLinecap="round" />
+                <circle cx="14" cy="14" r="3.2" fill="#2bbdb9" />
+              </svg>
+
+              {/* LABCHIP text with cyan underline */}
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+                <span
+                  style={{
+                    fontSize: '1.15rem',
+                    fontWeight: 400,
+                    letterSpacing: '0.16em',
+                    color: '#0f172a',
+                    textTransform: 'uppercase',
+                    lineHeight: '1.1',
+                  }}
+                >
+                  LABCHIP
+                </span>
+                <div
+                  style={{
+                    width: '100%',
+                    height: '2px',
+                    backgroundColor: '#2bbdb9',
+                    marginTop: '1px',
+                    borderRadius: '1px',
+                  }}
+                />
+              </div>
+            </Link>
+
+            <p style={{ fontSize: '0.95rem', lineHeight: 1.6, color: '#64748b', fontWeight: 400 }}>
+              Our mission is to empower everyday people and researchers with silicon photonics lab-on-a-chip diagnostics for accessible biomarker detection.
             </p>
           </div>
 
-          <form onSubmit={handleSubscribe} style={{ display: 'flex', gap: '0.75rem' }}>
-            <input
-              type="email"
-              placeholder="Enter work email (e.g. lab@biopharma.com)..."
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              style={{
-                flex: 1,
-                background: 'rgba(7, 11, 20, 0.8)',
-                border: '1px solid rgba(255, 255, 255, 0.15)',
-                borderRadius: '9999px',
-                padding: '0.85rem 1.25rem',
-                color: '#FFFFFF',
-                fontSize: '0.9rem',
-                outline: 'none'
-              }}
-            />
-            <button
-              type="submit"
-              disabled={loading}
-              className="btn-primary"
-              style={{ padding: '0.85rem 1.5rem', whiteSpace: 'nowrap' }}
-            >
-              {subscribed ? <CheckCircle2 size={18} /> : <Send size={18} />}
-              <span>{subscribed ? 'Subscribed' : 'Subscribe'}</span>
-            </button>
-          </form>
-        </div>
-
-        {/* 3 Column Main Footer Links Grid */}
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
-          gap: '3rem',
-          marginBottom: '3.5rem'
-        }}>
-          {/* Brand Info Column */}
+          {/* MIDDLE COLUMN: QUICK LINKS */}
           <div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '1.25rem' }}>
-              <div style={{
-                width: '36px',
-                height: '36px',
-                borderRadius: '8px',
-                background: 'linear-gradient(135deg, rgba(14,165,233,0.3) 0%, rgba(6,182,212,0.4) 100%)',
-                border: '1px solid rgba(6,182,212,0.5)',
+            <h3 style={{ fontSize: '1.25rem', fontWeight: 700, color: '#0f172a', marginBottom: '1.5rem', letterSpacing: '-0.01em' }}>
+              Quick Links
+            </h3>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1.5rem' }}>
+              <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.75rem', fontSize: '0.92rem' }}>
+                <li><Link to="/company" style={footerLinkStyle}>Partner With Us</Link></li>
+                <li><Link to="/company" style={footerLinkStyle}>About Us</Link></li>
+                <li><Link to="/company" style={footerLinkStyle}>Careers</Link></li>
+              </ul>
+              <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.75rem', fontSize: '0.92rem' }}>
+                <li><Link to="/science" style={footerLinkStyle}>LabChip Tech</Link></li>
+                <li><Link to="/news" style={footerLinkStyle}>Content Hub</Link></li>
+                <li><Link to="/news" style={footerLinkStyle}>Research Articles</Link></li>
+              </ul>
+              <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.75rem', fontSize: '0.92rem' }}>
+                <li><Link to="/assays" style={footerLinkStyle}>What We Measure</Link></li>
+                <li><Link to="/faq" style={footerLinkStyle}>FAQs</Link></li>
+                <li><Link to="/contact-us" style={footerLinkStyle}>Support Center</Link></li>
+              </ul>
+            </div>
+          </div>
+
+          {/* RIGHT COLUMN: COMPANY & FLOATING BACK-TO-TOP BUTTON */}
+          <div style={{ position: 'relative' }}>
+            <h3 style={{ fontSize: '1.25rem', fontWeight: 700, color: '#0f172a', marginBottom: '1.5rem', letterSpacing: '-0.01em' }}>
+              Company
+            </h3>
+            
+            <div style={{ fontSize: '0.92rem', color: '#64748b', lineHeight: 1.5, marginBottom: '0.5rem', fontWeight: 500 }}>
+              SiPhBioLabChip, Inc.
+            </div>
+
+            <div style={{ fontSize: '0.92rem', color: '#64748b', marginBottom: '0.5rem' }}>
+              Email coming soon
+            </div>
+
+            <div style={{ fontSize: '0.92rem', color: '#64748b', marginBottom: '0.5rem' }}>
+              Phone coming soon
+            </div>
+
+            <div style={{ fontSize: '0.92rem', color: '#64748b' }}>
+              Address coming soon
+            </div>
+
+            {/* ORANGE CIRCULAR BACK-TO-TOP BUTTON */}
+            <button
+              onClick={scrollToTop}
+              aria-label="Back to top"
+              style={{
+                position: 'absolute',
+                top: '0',
+                right: '0',
+                width: '56px',
+                height: '56px',
+                borderRadius: '50%',
+                background: 'linear-gradient(135deg, #ff8a3d 0%, #f97316 100%)',
+                color: '#ffffff',
+                border: 'none',
                 display: 'flex',
                 alignItems: 'center',
-                justifyContent: 'center'
-              }}>
-                <Cpu size={20} style={{ color: '#06B6D4' }} />
-              </div>
-              <span style={{ fontFamily: 'var(--font-heading)', fontSize: '1.25rem', fontWeight: 800, color: '#FFFFFF' }}>
-                SiPhBio<span style={{ color: '#06B6D4' }}>LabChip</span>
-              </span>
-            </div>
+                justifyContent: 'center',
+                cursor: 'pointer',
+                boxShadow: '0 8px 20px rgba(249, 115, 22, 0.4)',
+                transition: 'all 0.25s cubic-bezier(0.16, 1, 0.3, 1)',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = 'translateY(-3px) scale(1.05)';
+                e.currentTarget.style.boxShadow = '0 12px 25px rgba(249, 115, 22, 0.55)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = 'translateY(0) scale(1)';
+                e.currentTarget.style.boxShadow = '0 8px 20px rgba(249, 115, 22, 0.4)';
+              }}
+            >
+              <ChevronUp size={30} strokeWidth={2.8} />
+            </button>
+          </div>
+        </div>
 
-            <p style={{ fontSize: '0.9rem', lineHeight: 1.6, marginBottom: '1.25rem', color: '#94A3B8' }}>
-              Next-generation Silicon Photonics biochip microfluidic platform delivering real-time label-free multi-analyte binding kinetics for clinical diagnostic laboratories and enterprise biopharma.
+        {/* HORIZONTAL SEPARATOR */}
+        <div style={{ borderTop: '1px solid #e2e8f0', marginBottom: '2.5rem' }} />
+
+        {/* BOTTOM SECTION: DISCLAIMER & COPYRIGHT */}
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: '1fr auto',
+            gap: '3rem',
+            alignItems: 'center',
+          }}
+        >
+          {/* MEDICAL DISCLAIMER */}
+          <div style={{ fontSize: '0.82rem', color: '#94a3b8', lineHeight: 1.65, maxWidth: '820px' }}>
+            <p style={{ marginBottom: '0.75rem' }}>
+              The reference ranges and insights presented in the SiPhBioLabChip dashboard are meant to improve readability and provide context, however you should consult with your physician for a more formal interpretation of your results. No communication from SiPhBioLabChip is meant to be or should be taken as medical advice. SiPhBioLabChip is a wellness and analytical diagnostic platform. If you are concerned about any of the data in your dashboard please consult your physician immediately.
             </p>
-
-            <div style={{ fontSize: '0.85rem', color: '#CBD5E1', display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
-              <div><strong>Official Domain:</strong> siphbiolabchip.com</div>
-              <div><strong>General Contact:</strong> contact@siphbiolabchip.com</div>
-              <div><strong>Technical Support:</strong> support@siphbiolabchip.com</div>
-              <div><strong>Biopharma Sales:</strong> sales@siphbiolabchip.com</div>
-            </div>
+            <p>
+              SiPhBioLabChip testing and instrumentation are fulfilled and provided in compliance with accredited clinical laboratory standards.
+            </p>
           </div>
 
-          {/* Col 1: About & Platform */}
-          <div>
-            <h4 style={{ fontSize: '1.05rem', color: '#FFFFFF', marginBottom: '1.25rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-              About SiPhBioLabChip
-            </h4>
-            <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.65rem', fontSize: '0.9rem' }}>
-              <li><Link to="/science" style={{ color: '#94A3B8', textDecoration: 'none' }} className="footer-link">Silicon Photonics Technology</Link></li>
-              <li><Link to="/company" style={{ color: '#94A3B8', textDecoration: 'none' }} className="footer-link">Company & Leadership</Link></li>
-              <li><Link to="/use-cases" style={{ color: '#94A3B8', textDecoration: 'none' }} className="footer-link">Use Cases & Solutions</Link></li>
-              <li><Link to="/publications" style={{ color: '#94A3B8', textDecoration: 'none' }} className="footer-link">Published Research & Studies</Link></li>
-              <li><Link to="/admin" style={{ color: '#06B6D4', fontWeight: 600, textDecoration: 'none' }} className="footer-link">Executive Portal (Admin)</Link></li>
-              <li><Link to="/privacy" style={{ color: '#94A3B8', textDecoration: 'none' }} className="footer-link">Privacy Policy</Link></li>
-              <li><Link to="/terms" style={{ color: '#94A3B8', textDecoration: 'none' }} className="footer-link">Terms of Service</Link></li>
-              <li><Link to="/cookie" style={{ color: '#94A3B8', textDecoration: 'none' }} className="footer-link">Cookie Policy</Link></li>
-            </ul>
-          </div>
-
-          {/* Col 2: Research & Releases */}
-          <div>
-            <h4 style={{ fontSize: '1.05rem', color: '#FFFFFF', marginBottom: '1.25rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-              Research & Releases
-            </h4>
-            <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.65rem', fontSize: '0.9rem' }}>
-              <li><Link to="/news" style={{ color: '#94A3B8', textDecoration: 'none' }} className="footer-link">Bio-Optical Kinetic Blog</Link></li>
-              <li><Link to="/publications" style={{ color: '#94A3B8', textDecoration: 'none' }} className="footer-link">Peer-Reviewed Papers</Link></li>
-              <li><Link to="/volunteer" style={{ color: '#94A3B8', textDecoration: 'none' }} className="footer-link">Events & Symposia</Link></li>
-              <li><Link to="/faq" style={{ color: '#94A3B8', textDecoration: 'none' }} className="footer-link">Photonic FAQ</Link></li>
-            </ul>
-          </div>
-
-          {/* Col 3: Support & Clinical */}
-          <div>
-            <h4 style={{ fontSize: '1.05rem', color: '#FFFFFF', marginBottom: '1.25rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-              Support & Clinical Services
-            </h4>
-            <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.65rem', fontSize: '0.9rem' }}>
-              <li><Link to="/contact-us" style={{ color: '#94A3B8', textDecoration: 'none' }} className="footer-link">Contact Clinical Specialists</Link></li>
-              <li><Link to="/paid-services" style={{ color: '#10B981', fontWeight: 600, textDecoration: 'none' }} className="footer-link">Custom Biochip Cartridge Foundry</Link></li>
-              <li><Link to="/paid-services" style={{ color: '#94A3B8', textDecoration: 'none' }} className="footer-link">Priority Lab Dispatch Portal</Link></li>
-              <li><Link to="/pricing" style={{ color: '#94A3B8', textDecoration: 'none' }} className="footer-link">Enterprise Subscription Plans</Link></li>
-            </ul>
-          </div>
-
-        </div>
-
-        {/* Footer Bottom Bar & Social Icons */}
-        <div style={{
-          borderTop: '1px solid rgba(255, 255, 255, 0.08)',
-          paddingTop: '2rem',
-          display: 'flex',
-          flexWrap: 'wrap',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          gap: '1.5rem',
-          fontSize: '0.85rem'
-        }}>
-          <div>
-            © Copyright <strong>SiPhBioLabChip</strong> 2026. All rights reserved. <span style={{ color: '#06B6D4' }}>siphbiolabchip.com</span>
-          </div>
-
-          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-            <a href="https://linkedin.com" target="_blank" rel="noreferrer" style={{
-              width: '36px', height: '36px', borderRadius: '50%', background: 'rgba(255,255,255,0.05)',
-              display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#94A3B8', transition: 'all 0.2s'
-            }}>
-              <Linkedin size={18} />
-            </a>
-            <a href="https://x.com" target="_blank" rel="noreferrer" style={{
-              width: '36px', height: '36px', borderRadius: '50%', background: 'rgba(255,255,255,0.05)',
-              display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#94A3B8', transition: 'all 0.2s'
-            }}>
-              <Twitter size={18} />
-            </a>
-            <a href="https://facebook.com" target="_blank" rel="noreferrer" style={{
-              width: '36px', height: '36px', borderRadius: '50%', background: 'rgba(255,255,255,0.05)',
-              display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#94A3B8', transition: 'all 0.2s'
-            }}>
-              <Facebook size={18} />
-            </a>
-            <a href="https://youtube.com" target="_blank" rel="noreferrer" style={{
-              width: '36px', height: '36px', borderRadius: '50%', background: 'rgba(255,255,255,0.05)',
-              display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#94A3B8', transition: 'all 0.2s'
-            }}>
-              <Youtube size={18} />
-            </a>
+          {/* COPYRIGHT */}
+          <div style={{ fontSize: '0.88rem', color: '#94a3b8', whiteSpace: 'nowrap' }}>
+            © {new Date().getFullYear()} SiPhBioLabChip. All rights reserved.
           </div>
         </div>
-
       </div>
-
-      <style>{`
-        .footer-link {
-          background: none;
-          border: none;
-          padding: 0;
-          font-family: inherit;
-          cursor: pointer;
-          transition: color 0.2s ease;
-        }
-        .footer-link:hover {
-          color: #06B6D4 !important;
-        }
-      `}</style>
     </footer>
   );
 }
+
+const footerLinkStyle = {
+  color: '#64748b',
+  textDecoration: 'none',
+  transition: 'color 0.2s ease',
+};

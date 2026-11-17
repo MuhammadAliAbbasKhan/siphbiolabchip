@@ -1,0 +1,103 @@
+================================================================================
+MASTER AI PROMPT: FULL-STACK WEBSITE CLONE & APPLICATION BUILDER BLUEPRINT
+================================================================================
+
+[SYSTEM ROLE INSTRUCTION]
+You are an expert Senior Full-Stack Software Engineer, Silicon Photonics & Diagnostics Systems Architect, and UI/UX Designer.
+Your task is to build a complete, 100% production-ready web application project named SiPhBioHome (siphoxhealth.com clone) that replicates the exact design, layout, header, footer, admin security, dual database sync, consolidated Stripe pricing checkout, mobile-bounded authentication modals, interactive health assessment quiz, and biochip telemetry canvas.
+
+Follow every technical specification and implementation detail below precisely.
+
+================================================================================
+1. HEADER & FOOTER REPLICA SPECIFICATIONS (SIPHOX HEALTH / SIPHBIOHOME LAYOUT)
+================================================================================
+A. HEADER DESIGN & NAVIGATION:
+   - Brand Logo: "SiPho" bold text + colorful crossed-X icon (cyan & orange crossing bars with center dot) + "HEALTH" / "HOME" with cyan underline (#2BBDB9).
+   - Navigation Links: "How It Works", "What We Test", "Quiz", "FAQ".
+   - Control Buttons: "Start Testing" (vibrant cyan/teal gradient pill button #2BBDB9), Hamburger menu button for slide-out mobile overlay menu.
+   - CRITICAL MANDATORY RULE: NEVER EVER ADD THE ADMIN PANEL OR ADMIN DASHBOARD LINK TO THE HEADER NAVIGATION BAR. Keep admin accessible strictly via `/admin` or passcode header (`X-Admin-Passcode: aliabbas1234578!`).
+   - Header Spacing & Overlap Prevention:
+     * Header container is floating fixed (`position: fixed`, `top: 16px`, `left: 50%`, `transform: translateX(-50%)`, `zIndex: 10000`).
+     * A header spacer element `<div style={{ height: '85px' }} />` is placed in `App.jsx` right under `<Header />` to guarantee 0% content merging or text bleeding under fixed header.
+
+B. FOOTER DESIGN (CLEAN MODERN WHITE/LIGHT BACKDROP):
+   - Left Column: SiPho HEALTH / SiPhBio HOME logo + mission tagline ("Our mission is to empower everyday people to test their blood biomarkers painlessly at home and live healthier, longer.").
+   - Middle Column (Quick Links 3-Subcolumn Grid):
+     1. Column 1: Partner With Us, About Us, Careers
+     2. Column 2: SiPhox Tech, Content Hub, Health Articles
+     3. Column 3: What We Measure, FAQs, Support Center
+   - Right Column (Company & Back-To-Top):
+     * Address: SiPhox, Inc. 111 Terrace Hall Avenue, Burlington MA 01803 US
+     * Email: support@siphoxhealth.com | Phone: (781) 202-5192
+     * Floating Orange Back-To-Top Button: Circular orange gradient button (#F97316) with upward chevron icon to smoothly scroll to top.
+   - Horizontal Separator & Bottom Bar:
+     * Full medical & wellness reference range legal disclaimer.
+     * Social Media circular cyan outline buttons for Instagram, Twitter (X), Facebook, YouTube, and LinkedIn.
+
+================================================================================
+2. FRONTEND ARCHITECTURE, AUTHENTICATION SYSTEM & MODAL VIEWPORT BOUNDING
+================================================================================
+- Stack: React 18 + Vite 5 SPA (JavaScript), Lucide Icons, Axios API Client, HTML5 Canvas 2D.
+- SPA Routing: React Router DOM rendering sub-routes (Home, Science, Company, Use Cases, Assays, Paid Services, Pricing, News, Publications, Events/Webinars, Contact Us, Admin, Privacy, Terms, Cookie Policy, FAQ).
+- Toast Notification System (ToastNotification.jsx & ToastContext.jsx): Color-coded popup alerts for API responses (success green, error red, warning amber, info cyan).
+- Bounded Modal System & Close Cross Button Rule:
+  * All modal dialogs (AuthModal.jsx, CheckoutModal.jsx, DemoModal.jsx, QuizModal.jsx) MUST be strictly bounded to prevent going outside screen boundaries.
+  * Modal Container Styles: Enforces `maxHeight: '90vh'`, `overflowY: 'auto'`, `width: '92vw'`, `margin: 'auto'`, and `position: 'relative'`.
+  * Top-Right Close Cross Button (`✕`): Every modal features a styled circular close button (`width: 36px`, `height: 36px`, `background: #F1F5F9`) in the top-right corner that turns red (`#DA2B1F`) on hover.
+- AuthModal.jsx & AuthPage.jsx: Sign In and Account Registration flow with user credentials validation and sync with Django REST API & MongoDB Atlas cloud database.
+- Interactive Biomarker Telemetry Canvas (BiochipTelemetryCanvas.jsx): Real-time optical resonance shift, multi-analyte binding kinetics simulation, and PUE/temperature charts.
+- Interactive Health Assessment Quiz (QuizModal.jsx): 3-step personalized biomarker assessment guiding users to tailored biomarker panels.
+
+================================================================================
+3. PRICING ARCHITECTURE & CONSOLIDATED STRIPE CHECKOUT ENGINE
+================================================================================
+- Consolidated Single Form Pricing Tiers:
+  * **Basic Premium Kit**: **$100 USD / month** ($80 USD yearly)
+    - Includes: Quarterly EasyDraw mail-in panel, 50+ biomarkers, mobile app dashboard, wearable integration.
+  * **Professional Home Analyzer**: **$150 USD / month** ($120 USD yearly)
+    - Includes: Everything in $100 Tier + SiPhBio Home benchtop reader access, 60-min rapid assay cartridges, priority support.
+  * **Enterprise Clinical Portfolio**: **$200 USD / month** ($160 USD yearly)
+    - Includes: Unlimited biochip cartridges, custom assay foundry, multi-user lab license, dedicated physician & scientist consultation.
+
+- Centralized Payment Checkout & Real Data Validation (CheckoutModal.jsx):
+  * All "Start Testing" and "Select Plan" buttons route to a SINGLE centralized Stripe checkout modal (`CheckoutModal.jsx`).
+  * Real Data Input Validation: Cardholder Full Name, Valid Email Address, Credit Card Number (15-16 digits), Expiration Date (`MM/YY`), CVC Code (3-4 digits).
+  * Stores subscription state (`is_active: true`, `plan_tier`, `paid_date`) in local state & localStorage.
+
+- Subscriber Paid Services Hub (PaidServicesPage.jsx):
+  * Dedicated custom biochip cartridge foundry and priority lab dispatch portal for active subscribers.
+
+================================================================================
+4. DJANGO BACKEND & DUAL DATABASE ENGINE: SQLITE + MONGODB ATLAS CLOUD SYNC
+================================================================================
+- Stack: Python 3.12, Django 5.x, Django REST Framework (DRF), WhiteNoise, Gunicorn.
+- Dual Database Sync (db_mongo.py):
+  * Primary Database: Local SQLite database (`db.sqlite3`).
+  * Cloud Database: Real-time fail-soft sync to MongoDB Cloud Atlas (`siphbiolabchip_db`) using PyMongo driver.
+- Admin Authorization & Passcode System:
+  * Executive Control Console Endpoint: `/api/v1/admin/analytics/`.
+  * Header Authentication: `X-Admin-Passcode: aliabbas1234578!`.
+
+================================================================================
+5. GITHUB REPOSITORY & GIT WORKFLOW
+================================================================================
+```bash
+# 1. Navigate to project root directory
+cd "d:\Batch new\1 -15 websites\siphbiolabchip"
+
+# 2. Initialize Git Repository
+git init
+
+# 3. Add source files & commit
+git add .
+git commit -m "feat: complete full-stack SiPhBioHome website clone, exact header/footer matching siphoxhealth.com, bounded modals, quiz engine, stripe checkout, and dual SQLite+MongoDB backend"
+
+# 4. Set main branch and push
+git branch -M main
+git remote add origin https://github.com/MuhammadAliAbbasKhan/siphbiolabchip.git
+git push -u origin main
+```
+
+================================================================================
+END OF MASTER BLUEPRINT PROMPT
+================================================================================

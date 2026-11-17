@@ -7,6 +7,7 @@ import { Footer } from './components/Footer';
 import { AuthModal } from './components/AuthModal';
 import { DemoModal } from './components/DemoModal';
 import { CheckoutModal } from './components/CheckoutModal';
+import { QuizModal } from './components/QuizModal';
 
 // Pages
 import HomePage from './pages/HomePage';
@@ -31,6 +32,7 @@ export function AppContent() {
   const [authOpen, setAuthOpen] = useState(false);
   const [demoOpen, setDemoOpen] = useState(false);
   const [checkoutOpen, setCheckoutOpen] = useState(false);
+  const [quizOpen, setQuizOpen] = useState(false);
   const [selectedPlan, setSelectedPlan] = useState(null);
   const [isYearly, setIsYearly] = useState(true);
   const [currentUser, setCurrentUser] = useState(null);
@@ -64,10 +66,13 @@ export function AppContent() {
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
       
       {/* Header */}
-      <Header />
+      <Header 
+        onOpenQuiz={() => setQuizOpen(true)}
+        onStartTesting={() => setCheckoutOpen(true)}
+      />
 
-      {/* Spacer for Fixed Header */}
-      <div style={{ height: '75px' }} />
+      {/* Spacer for Fixed Floating Header */}
+      <div style={{ height: '85px' }} />
 
       {/* Main Content & Routes */}
       <main style={{ flex: 1 }}>
@@ -97,6 +102,11 @@ export function AppContent() {
       <Footer setCurrentPage={setCurrentPage} />
 
       {/* Modals */}
+      <QuizModal
+        isOpen={quizOpen}
+        onClose={() => setQuizOpen(false)}
+        onStartTesting={() => setCheckoutOpen(true)}
+      />
       <AuthModal 
         isOpen={authOpen} 
         onClose={() => setAuthOpen(false)} 
